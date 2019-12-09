@@ -1,22 +1,22 @@
 package uno.rebellious.spiremaster
 
 import basemod.BaseMod
-import basemod.interfaces.PostUpdateSubscriber
-import basemod.interfaces.RelicGetSubscriber
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer
-import com.megacrit.cardcrawl.relics.AbstractRelic
 import org.apache.logging.log4j.LogManager
+import uno.rebellious.spiremaster.subscribers.DungeonSubscriber
+import uno.rebellious.spiremaster.subscribers.GameSubscriber
+import uno.rebellious.spiremaster.subscribers.PlayerSubscriber
+import uno.rebellious.spiremaster.subscribers.RelicSubscriber
 
 @SpireInitializer
-class SpireMaster: RelicGetSubscriber {
-
-    override fun receiveRelicGet(relic: AbstractRelic?) {
-        logger.info("Got Relix ${relic?.name}")
-    }
+class SpireMaster {
 
     init {
         logger.info("Initialising Spire Master")
-        BaseMod.subscribe(this)
+        BaseMod.subscribe(RelicSubscriber())
+        BaseMod.subscribe(GameSubscriber())
+        BaseMod.subscribe(DungeonSubscriber())
+        BaseMod.subscribe(PlayerSubscriber())
     }
 
     companion object {
